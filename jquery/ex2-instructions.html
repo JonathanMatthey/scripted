@@ -1,52 +1,71 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="utf-8">
+  <title>Video Watcher</title>
+  <link rel="stylesheet" type="text/css" href="http://www.teaching-materials.org/common/bootstrap.css">
+ </head>
+ <body>
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>Exercise: jQuery Events & Animation</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link href="http://www.teaching-materials.org/common/bootstrap.css" rel="stylesheet">
-    <style>
-    ol li {
-      line-height: 2em;
-      margin-bottom: 10px;
-    }
-    </style>
-  </head>
+<div class="container">
+ 
+ <div class="row">
+   <div class="span12">
+    <h2 class="page-header">Best Videos Ever ❤</h1>
+   </div>
+ </div>
+ 
+ <div class="row">
+   <div class="span3">
+     <ul>
+      <li><a id="video1" href="https://www.youtube.com/watch?v=TddFnTB_7IM">Trip through the 80s</a></li>
+      <li><a id="video2" href="https://www.youtube.com/watch?v=epUk3T2Kfno">Otters Holding Hands</a></li>
+      <li><a id="video3" href="https://www.youtube.com/watch?v=il2IrgFHfsg">The Ooooh Cat</a></li>
+    </ul>
+   </div>
+   <div class="span9" id="video-watcher">
+   </div>
+ </div>
+</div>
 
-  <body>
-    <div class="container">
-      <h2>Exercise: jQuery Events & Animation</h2>
-      <p>
-        In this exercise, you'll add code to the so that you can actually watch the videos on the page.
-      </p>
-      <ol>
-        <li>Either start with your code from the jQuery workshop, or download the <a href="exercise_events_before.html">starter file</a>.</li>
-        <li>In the <code>body</code> of your HTML, create a &lt;div&gt; to hold the video player, either below or to the side of the list, and give it an id.</li>
-        <li>In the <code>script</code> tag that you were working in before, create a <code>thumbnailify()</code> function that takes a single argument.</li>
-        <li>Move the code that is currently inside your <code>for</code> loop into that <code>thumbnailify()</code> function.</li>
-        <li>Change the contents of your function so that it uses a single argument, which is a jQuery object that represents an <code>&lt;a&gt;</code>, rather than an array of elements.</li>
-        <li>Move the <code>for</code> loop so that it occurs after you define <code>thumbnailify()</code></li>
-        <li>Call <code>thumbnailify()</code> from inside your <code>for</code> loop.</li>
-        <li>Make sure your player first works like it did before. <strong>Hint: </strong>you should only reference an array index from inside of the <code>for</code> loop.</code></li>
-        <li>Now, in the <code>thumbnailify()</code> function, add a click listener
-        to the link. We recommend using an anonymous function for the callback (not a named function). Put a <code>console.log</code> inside the callback to make sure it works.</li>
-        <li>In the click listener callback, you will be using the "create and store, manipulate, inject" pattern to display an embedded video in the DIV you created.</li>
-        <li>To find out what the code for an embedded Youtube video looks like, go to Youtube.com and find any embed code
-        for a video.</li>
-        <li>You can use youtube.generateEmbedUrl() from the <a href="../youtube_doc.html">youtube.js library</a> to generate an embed URL.</li>
-        <li>Use string concatenation, <code>.html()</code>, or other jQuery method of your choice to assemble and insert the embedded video element.</li>
-        <li>Check your work! Try all your video links. Is there anything you need to change?</li>
-        <li>As a bonus, try to make the video watcher &lt;div&gt; fade in using <a href="http://jquery.com">jQuery</a>.</li>
-      </ol>
+ <script type="text/javascript" src="http://www.teaching-materials.org/common/youtube.js"></script>
+ <script type="text/javascript" src="http://www.teaching-materials.org/common/jquery.js"></script>
+ <script>
 
-      <p>
-        Make sure that you use your browser developer tools to make debugging easier
-        while working on this. Check for errors, and use console.log() to figure out
-        how far your code makes it, and what the values of your variables are along the way.
-      </p>
+var thumbnailify = function(videoLink) {
+  var linkUrl = videoLink.attr('href');
+  var thumbnailUrl = youtube.generateThumbnailUrl(linkUrl);
+  var thumbnailImg = $('<img>');
+  thumbnailImg.attr('src', thumbnailUrl);
+  videoLink.append(thumbnailImg);
 
-  </body>
+  videoLink.on('click', function(e) {
+      e.preventDefault();
+      var videoEmbed = $('<iframe></iframe>');
+      videoEmbed.attr('src', youtube.generateEmbedUrl(linkUrl));
+      videoEmbed.attr('width', 560);
+      videoEmbed.attr('height', 315);
+      var videoWatcher = $('#video-watcher');
+      videoWatcher.hide();
+      videoWatcher.html(videoEmbed);
+      videoWatcher.fadeIn();
+  });
+};
+
+var videoLinks = $('a');
+for (var i = 0; i < videoLinks.length; i++) {
+  var videoLink = $(videoLinks[i]);
+  thumbnailify(videoLink);
+}
+
+  $("#video1").click(function(){
+    $("body").style('background','red');
+  });
+
+  // VIDEO 2 CLICK - BODY BACKGROUND DIFFERENT COLOR
+
+  // VIDEO 3 CLICK - BODY BACKGROUND DIFFERENT COLOR
+
+ </script>
+ </body>
 </html>
