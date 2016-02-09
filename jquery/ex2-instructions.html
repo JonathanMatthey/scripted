@@ -58,14 +58,20 @@ for (var i = 0; i < videoLinks.length; i++) {
   thumbnailify(videoLink);
 }
 
-  $("#video1").click(function(){
-    $("body").style('background','red');
+  $(document).ready(function(){
+
+    $("#video1").click(function(){
+      $("body").css('background','red');
+    });
+
+    // VIDEO 2 CLICK - BODY BACKGROUND DIFFERENT COLOR
+
+    // VIDEO 3 CLICK - BODY BACKGROUND DIFFERENT COLOR
+
+    $("#video2").click(function(){
+      $("body").css('background','blue');
+    });
   });
-
-  // VIDEO 2 CLICK - BODY BACKGROUND DIFFERENT COLOR
-
-  // VIDEO 3 CLICK - BODY BACKGROUND DIFFERENT COLOR
-
  </script>
  </body>
 </html>
